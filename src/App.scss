@@ -1,2 +1,6 @@
+@import "./assets/scss/_variables";
 @import "../node_modules/bootstrap/scss/bootstrap";
-@import "./assets/scss/custom";
+
+* {
+  box-sizing: border-box;
+}
