@@ -1,7 +1,8 @@
-import { useState } from "react";
+// import { useState } from "react";
 import "./App.scss";
 
 import Header from "./components/Header/Header";
+import Home from "./pages/Home";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +12,7 @@ function App() {
   return (
     <>
       <Header />
+      <Home />
     </>
   );
 }
