@@ -1,0 +1,37 @@
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 0;
+
+  .genres > span:not(:last-of-type)::after {
+    content: ", ";
+  }
+}
+
+.bg-platforms {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.bg-platform-playstation {
+  height: 12px;
+  width: 16px;
+  background-image: url("../../assets/img/playstation-icon.svg");
+  background-repeat: no-repeat;
+}
+
+.bg-platform-xbox {
+  height: 12px;
+  width: 12px;
+  background-repeat: no-repeat;
+  background-image: url("../../assets/img/xbox-icon.svg");
+}
+
+.bg-platform-pc {
+  height: 12px;
+  width: 13px;
+  background-repeat: no-repeat;
+  background-image: url("../../assets/img/pc-icon.svg");
+}

@@ -1,5 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+
+import GameCard from "../components/Card/GameCard";
 
 const Home = () => {
   const [games, setGames] = useState([]);
@@ -8,9 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(
-          `https://api.rawg.io/api/games?key=ADD_KEY`
-        );
+        const { data } = await axios.get(`http://localhost:3000`);
 
         setGames(data.results);
         setIsLoading(false);
@@ -27,11 +29,17 @@ const Home = () => {
       {isLoading ? (
         <div>Games list loading... </div>
       ) : (
-        <div>
-          {games.map((game, i) => (
-            <div key={i}>{game.name}</div>
-          ))}
-        </div>
+        <Container>
+          <Row>
+            <h1>New and trending</h1>
+            <p>Based on player counts and release date</p>
+          </Row>
+          <Row>
+            {games.map((game, i) => (
+              <GameCard key={i} {...game} />
+            ))}
+          </Row>
+        </Container>
       )}
     </>
   );
