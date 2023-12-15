@@ -34,11 +34,11 @@ const Home = () => {
             <h1>New and trending</h1>
             <p>Based on player counts and release date</p>
           </Row>
-          <Row>
+          <div className="cards-grid">
             {games.map((game, i) => (
               <GameCard key={i} {...game} />
             ))}
-          </Row>
+          </div>
         </Container>
       )}
     </>

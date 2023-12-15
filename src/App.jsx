@@ -5,8 +5,12 @@ import Header from "./components/Header/Header";
 import Home from "./pages/Home";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
-library.add(faMagnifyingGlass, faXmark);
+import {
+  faMagnifyingGlass,
+  faPlus,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+library.add(faMagnifyingGlass, faPlus, faChevronRight);
 
 function App() {
   return (
