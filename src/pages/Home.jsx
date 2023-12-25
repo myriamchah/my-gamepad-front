@@ -15,12 +15,14 @@ const Home = () => {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(2);
   const [order, setOrder] = useState("");
+  const [gamePlay, setGamePlay] = useState("singleplayer,multiplayer");
+  const [platform, setPlatform] = useState("1,2,3");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3000?ordering=${order}`
+          `http://localhost:3000?ordering=${order}&tags=${gamePlay}&parent_platforms=${platform}`
         );
 
         setGames(data.results);
@@ -31,7 +33,7 @@ const Home = () => {
     };
 
     fetchData();
-  }, [order]);
+  }, [order, gamePlay, platform]);
 
   const fetchMoreData = () => {
     axios
@@ -70,6 +72,29 @@ const Home = () => {
                 <option value="name">Name</option>
                 <option value="released">Release date</option>
                 <option value="rating">Rating</option>
+              </Form.Select>
+            </Col>
+            <Col>
+              <Form.Select
+                aria-label="Filter by Gameplay"
+                size="sm"
+                onChange={(e) => setGamePlay(e.target.value)}
+              >
+                <option value="singleplayer,multiplayer">Gameplay</option>
+                <option value="singleplayer">Single Player</option>
+                <option value="multiplayer">Multiplayer</option>
+              </Form.Select>
+            </Col>
+            <Col>
+              <Form.Select
+                aria-label="Filter by Platform"
+                size="sm"
+                onChange={(e) => setPlatform(e.target.value)}
+              >
+                <option value="1,2,3">Platforms</option>
+                <option value="1">PC</option>
+                <option value="2">PlayStation</option>
+                <option value="3">Xbox</option>
               </Form.Select>
             </Col>
           </Row>
