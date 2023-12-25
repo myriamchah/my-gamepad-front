@@ -2,6 +2,9 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import GameCard from "../components/Card/GameCard";
@@ -11,11 +14,14 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(2);
+  const [order, setOrder] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3000`);
+        const { data } = await axios.get(
+          `http://localhost:3000?ordering=${order}`
+        );
 
         setGames(data.results);
         setIsLoading(false);
@@ -25,7 +31,7 @@ const Home = () => {
     };
 
     fetchData();
-  }, []);
+  }, [order]);
 
   const fetchMoreData = () => {
     axios
@@ -53,6 +59,21 @@ const Home = () => {
             <h1>New and trending</h1>
             <p>Based on player counts and release date</p>
           </Row>
+          <Row lg={6} className="mb-3">
+            <Col>
+              <Form.Select
+                aria-label="Order by"
+                size="sm"
+                onChange={(e) => setOrder(e.target.value)}
+              >
+                <option>Order by</option>
+                <option value="name">Name</option>
+                <option value="released">Release date</option>
+                <option value="rating">Rating</option>
+              </Form.Select>
+            </Col>
+          </Row>
+
           <div className="cards-grid">
             {games.map((game, i) => (
               <GameCard key={i} {...game} />
