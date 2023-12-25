@@ -1,12 +1,36 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Collapse from "react-bootstrap/Collapse";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "./header.scss";
 import logo from "../../assets/img/g-white.png";
 
+import SearchResultsCard from "./SearchResultsCard";
+
 const Header = () => {
+  const [search, setSearch] = useState("");
+  const [games, setGames] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:3000?search=${search}`
+        );
+
+        setGames(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [search]);
+
   return (
     <div>
       <Navbar expand="lg" data-bs-theme="dark">
@@ -16,9 +40,23 @@ const Header = () => {
             &nbsp;amepad
           </Navbar.Brand>
           <div className="input-search">
-            <input type="text" placeholder="Search xxx,xxx games" />
+            <input
+              type="text"
+              value={search}
+              placeholder={`Search ${games.count} games`}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                console.log(search);
+              }}
+            />
             <FontAwesomeIcon icon="magnifying-glass" className="icon" />
+            <Collapse in={search}>
+              <div id="search-results">
+                {search ? <SearchResultsCard {...{ games }} /> : "coucou"}
+              </div>
+            </Collapse>
           </div>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">

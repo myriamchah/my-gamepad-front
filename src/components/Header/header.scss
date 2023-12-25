@@ -44,6 +44,37 @@
     padding-right: 12px;
   }
 
+  #search-results {
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+    .card {
+      padding: 16px;
+      border: none;
+      background-color: black;
+      border-radius: 20px;
+      color: white;
+      overflow-y: scroll;
+      max-height: 80vh;
+
+      .title {
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        span {
+          font-weight: 300;
+          color: #797979;
+        }
+      }
+
+      img {
+        width: 36px;
+        height: 48px;
+        border-radius: 6px;
+      }
+    }
+  }
+
   &:hover {
     input {
       background-color: white;
