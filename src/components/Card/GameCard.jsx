@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./card.scss";
 
 const setEmoji = (game) => {
-  if (game.ratings[0].title === "exceptional") {
+  if (game.ratings[0]?.title === "exceptional") {
     return "🎯";
-  } else if (game.ratings[0].title === "recommended") {
+  } else if (game.ratings[0]?.title === "recommended") {
     return "👍";
   }
 };
@@ -19,7 +19,7 @@ const GameCard = (game) => {
         <Card.Img variant="top" src={game.background_image} />
         <Card.Body>
           <div className="bg-platforms">
-            {game.parent_platforms.map((p, i) => (
+            {game.parent_platforms?.map((p, i) => (
               <div
                 key={i}
                 className={`bg-platform-${p.platform.name.toLowerCase()}`}

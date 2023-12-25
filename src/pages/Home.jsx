@@ -5,16 +5,14 @@ import Row from "react-bootstrap/Row";
 
 import GameCard from "../components/Card/GameCard";
 
-const Home = ({ search }) => {
+const Home = () => {
   const [games, setGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(
-          `http://localhost:3000?search=${search}`
-        );
+        const { data } = await axios.get(`http://localhost:3000`);
 
         setGames(data.results);
         setIsLoading(false);
@@ -24,7 +22,7 @@ const Home = ({ search }) => {
     };
 
     fetchData();
-  }, [search]);
+  }, []);
 
   return (
     <>

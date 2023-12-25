@@ -43,7 +43,7 @@ const Header = () => {
             <input
               type="text"
               value={search}
-              placeholder={`Search ${games.count} games`}
+              placeholder={`Search 860,587 games`}
               onChange={(e) => {
                 setSearch(e.target.value);
                 console.log(search);
@@ -52,7 +52,7 @@ const Header = () => {
             <FontAwesomeIcon icon="magnifying-glass" className="icon" />
             <Collapse in={search}>
               <div id="search-results">
-                {search ? <SearchResultsCard {...{ games }} /> : "coucou"}
+                {search ? <SearchResultsCard {...{ games }} /> : ""}
               </div>
             </Collapse>
           </div>

@@ -11,7 +11,7 @@ const SearchResultsCard = ({ games }) => {
           <img src={game.background_image} alt={game.name} />
           <div className="px-2">
             <div className="bg-platforms mb-1">
-              {game.parent_platforms.map((p, i) => (
+              {game.parent_platforms?.map((p, i) => (
                 <div
                   key={i}
                   className={`bg-platform-${p.platform.name.toLowerCase()}`}
