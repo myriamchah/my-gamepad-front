@@ -27,10 +27,6 @@
   & > span:first-of-type {
     color: #797979;
   }
-
-  .genres > span:not(:last-of-type)::after {
-    content: ", ";
-  }
 }
 
 .bg-platforms {

@@ -9,8 +9,9 @@ import {
   faMagnifyingGlass,
   faPlus,
   faChevronRight,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faMagnifyingGlass, faPlus, faChevronRight);
+library.add(faMagnifyingGlass, faPlus, faChevronRight, faPenToSquare);
 
 function App() {
   return (

@@ -7,3 +7,12 @@ h1 {
   font-size: 1.5rem;
   font-weight: 700;
 }
+
+.title-sm {
+  font-size: 14px;
+  color: #444444;
+}
+
+.list-w-comas > span:not(:last-of-type)::after {
+  content: ", ";
+}

@@ -43,7 +43,7 @@ const GameCard = (game) => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <span>Genres:</span>
-                <span className="genres">
+                <span className="list-w-comas">
                   {game.genres.map((genre, i) => (
                     <span key={i}>{genre.name}</span>
                   ))}
