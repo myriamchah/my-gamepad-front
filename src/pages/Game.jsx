@@ -7,9 +7,11 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 import axios from "axios";
+import GameScreenshots from "../components/GameScreenshots/GameScreenshots";
 
 const Game = () => {
   const [game, setGame] = useState([]);
+  const [screenshots, setScreenshots] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const params = useParams();
@@ -22,7 +24,8 @@ const Game = () => {
           `http://localhost:3000/games/${gameSlug}`
         );
 
-        setGame(data);
+        setGame(data.game);
+        setScreenshots(data.screenshots);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -36,17 +39,19 @@ const Game = () => {
     <div
       className="layout"
       style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(15, 15, 15, 0) 0%, rgba(15, 15, 15, 1) 100%), url(${game.background_image})`,
+        backgroundImage: `linear-gradient(to bottom, rgba(15, 15, 15, 0.5), rgba(15, 15, 15, 1)), url(${game.background_image})`,
       }}
     >
       <Container>
+        <Row className="my-4">
+          <Col>
+            <p className="fw-lighter text-uppercase">
+              HOME / GAMES / {game.name}
+            </p>
+          </Col>
+        </Row>
         <Row>
           <Col lg={8}>
-            <Row className="my-4">
-              <Col>
-                <p>HOME / GAMES / {game.name?.toUpperCase()}</p>
-              </Col>
-            </Row>
             <Row>
               <Col className="d-flex flex-row align-items-center">
                 <div className="badge bg-white text-secondary fw-light me-3">
@@ -59,6 +64,11 @@ const Game = () => {
                       className={`bg-platform-${p.platform.name.toLowerCase()}`}
                     ></div>
                   ))}
+                </div>
+
+                <div className="fw-light ms-3">
+                  {game.playtime > 0 &&
+                    `AVERAGE PLAYTIME: ${game.playtime} HOURS`}
                 </div>
               </Col>
             </Row>
@@ -80,7 +90,9 @@ const Game = () => {
               </Col>
             </Row>
           </Col>
-          <Col lg={4}></Col>
+          <Col lg={4}>
+            <GameScreenshots {...{ game, screenshots }} />
+          </Col>
         </Row>
       </Container>
     </div>
