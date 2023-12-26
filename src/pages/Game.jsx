@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 import axios from "axios";
+import Loader from "../components/Loader/Loader";
 import GameScreenshots from "../components/GameScreenshots/GameScreenshots";
 
 const Game = () => {
@@ -36,66 +37,72 @@ const Game = () => {
   }, [gameSlug]);
 
   return (
-    <div
-      className="layout"
-      style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(15, 15, 15, 0.5), rgba(15, 15, 15, 1)), url(${game.background_image})`,
-      }}
-    >
-      <Container>
-        <Row className="my-4">
-          <Col>
-            <p className="fw-lighter text-uppercase">
-              HOME / GAMES / {game.name}
-            </p>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg={8}>
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div
+          className="layout"
+          style={{
+            backgroundImage: `linear-gradient(to bottom, rgba(15, 15, 15, 0.5), rgba(15, 15, 15, 1)), url(${game.background_image})`,
+          }}
+        >
+          <Container>
+            <Row className="my-4">
+              <Col>
+                <p className="fw-lighter text-uppercase">
+                  HOME / GAMES / {game.name}
+                </p>
+              </Col>
+            </Row>
             <Row>
-              <Col className="d-flex flex-row align-items-center">
-                <div className="badge bg-white text-secondary fw-light me-3">
-                  {game.released}
-                </div>
-                <div className="bg-platforms mb-0">
-                  {game.parent_platforms?.map((p, i) => (
-                    <div
-                      key={i}
-                      className={`bg-platform-${p.platform.name.toLowerCase()}`}
-                    ></div>
-                  ))}
-                </div>
+              <Col lg={8}>
+                <Row>
+                  <Col className="d-flex flex-row align-items-center">
+                    <div className="badge bg-white text-secondary fw-light me-3">
+                      {game.released}
+                    </div>
+                    <div className="bg-platforms mb-0">
+                      {game.parent_platforms?.map((p, i) => (
+                        <div
+                          key={i}
+                          className={`bg-platform-${p.platform.name.toLowerCase()}`}
+                        ></div>
+                      ))}
+                    </div>
 
-                <div className="fw-light ms-3">
-                  {game.playtime > 0 &&
-                    `AVERAGE PLAYTIME: ${game.playtime} HOURS`}
-                </div>
+                    <div className="fw-light ms-3">
+                      {game.playtime > 0 &&
+                        `AVERAGE PLAYTIME: ${game.playtime} HOURS`}
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <h1>{game.name}</h1>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Button variant="light">Add to My Games </Button>
+                    <Button variant="light">Write a Review</Button>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <h2>About</h2>
+                    <div>{ReactHtmlParser(game.description)}</div>
+                  </Col>
+                </Row>
+              </Col>
+              <Col lg={4}>
+                <GameScreenshots {...{ game, screenshots }} />
               </Col>
             </Row>
-            <Row>
-              <Col>
-                <h1>{game.name}</h1>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Button variant="light">Add to My Games </Button>
-                <Button variant="light">Write a Review</Button>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <h2>About</h2>
-                <div>{ReactHtmlParser(game.description)}</div>
-              </Col>
-            </Row>
-          </Col>
-          <Col lg={4}>
-            <GameScreenshots {...{ game, screenshots }} />
-          </Col>
-        </Row>
-      </Container>
-    </div>
+          </Container>
+        </div>
+      )}
+    </>
   );
 };
 

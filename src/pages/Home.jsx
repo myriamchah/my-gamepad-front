@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import GameCard from "../components/Card/GameCard";
+import Loader from "../components/Loader/Loader";
 
 const Home = () => {
   const [games, setGames] = useState([]);
@@ -47,66 +48,68 @@ const Home = () => {
   };
 
   return (
-    <Container>
+    <>
       {isLoading ? (
-        <div>Games list loading... </div>
+        <Loader />
       ) : (
-        <InfiniteScroll
-          dataLength={games.length}
-          next={fetchMoreData}
-          hasMore={hasMore}
-          loader={<div>... </div>}
-        >
-          <Row>
-            <h1>New and trending</h1>
-            <p>Based on player counts and release date</p>
-          </Row>
-          <Row lg={6} className="mb-3">
-            <Col>
-              <Form.Select
-                aria-label="Order by"
-                size="sm"
-                onChange={(e) => setOrder(e.target.value)}
-              >
-                <option>Order by</option>
-                <option value="name">Name</option>
-                <option value="released">Release date</option>
-                <option value="rating">Rating</option>
-              </Form.Select>
-            </Col>
-            <Col>
-              <Form.Select
-                aria-label="Filter by Gameplay"
-                size="sm"
-                onChange={(e) => setGamePlay(e.target.value)}
-              >
-                <option value="singleplayer,multiplayer">Gameplay</option>
-                <option value="singleplayer">Single Player</option>
-                <option value="multiplayer">Multiplayer</option>
-              </Form.Select>
-            </Col>
-            <Col>
-              <Form.Select
-                aria-label="Filter by Platform"
-                size="sm"
-                onChange={(e) => setPlatform(e.target.value)}
-              >
-                <option value="1,2,3">Platforms</option>
-                <option value="1">PC</option>
-                <option value="2">PlayStation</option>
-                <option value="3">Xbox</option>
-              </Form.Select>
-            </Col>
-          </Row>
+        <Container>
+          <InfiniteScroll
+            dataLength={games.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={<div>... </div>}
+          >
+            <Row>
+              <h1>New and trending</h1>
+              <p>Based on player counts and release date</p>
+            </Row>
+            <Row lg={6} className="mb-3">
+              <Col>
+                <Form.Select
+                  aria-label="Order by"
+                  size="sm"
+                  onChange={(e) => setOrder(e.target.value)}
+                >
+                  <option>Order by</option>
+                  <option value="name">Name</option>
+                  <option value="released">Release date</option>
+                  <option value="rating">Rating</option>
+                </Form.Select>
+              </Col>
+              <Col>
+                <Form.Select
+                  aria-label="Filter by Gameplay"
+                  size="sm"
+                  onChange={(e) => setGamePlay(e.target.value)}
+                >
+                  <option value="singleplayer,multiplayer">Gameplay</option>
+                  <option value="singleplayer">Single Player</option>
+                  <option value="multiplayer">Multiplayer</option>
+                </Form.Select>
+              </Col>
+              <Col>
+                <Form.Select
+                  aria-label="Filter by Platform"
+                  size="sm"
+                  onChange={(e) => setPlatform(e.target.value)}
+                >
+                  <option value="1,2,3">Platforms</option>
+                  <option value="1">PC</option>
+                  <option value="2">PlayStation</option>
+                  <option value="3">Xbox</option>
+                </Form.Select>
+              </Col>
+            </Row>
 
-          <div className="cards-grid">
-            {games.map((game, i) => (
-              <GameCard key={i} {...game} />
-            ))}
-          </div>
-        </InfiniteScroll>
+            <div className="cards-grid">
+              {games.map((game, i) => (
+                <GameCard key={i} {...game} />
+              ))}
+            </div>
+          </InfiniteScroll>
+        </Container>
       )}
-    </Container>
+    </>
   );
 };
 
