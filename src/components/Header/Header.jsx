@@ -46,7 +46,6 @@ const Header = () => {
               placeholder={`Search 860,587 games`}
               onChange={(e) => {
                 setSearch(e.target.value);
-                console.log(search);
               }}
             />
             <FontAwesomeIcon icon="magnifying-glass" className="icon" />
