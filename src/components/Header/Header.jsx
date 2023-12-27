@@ -49,7 +49,7 @@ const Header = () => {
               }}
             />
             <FontAwesomeIcon icon="magnifying-glass" className="icon" />
-            <Collapse in={search}>
+            <Collapse in={search.length > 0}>
               <div id="search-results">
                 {search ? <SearchResultsCard {...{ games }} /> : ""}
               </div>

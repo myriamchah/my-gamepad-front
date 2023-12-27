@@ -1,7 +1,11 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFolder, faPenToSquare } from "@fortawesome/free-regular-svg-icons";
+import {
+  faFolder,
+  faPenToSquare,
+  faComment,
+} from "@fortawesome/free-regular-svg-icons";
 
 import ReactHtmlParser from "react-html-parser";
 import Container from "react-bootstrap/Container";
@@ -85,14 +89,17 @@ const Game = () => {
         <div
           className="layout"
           style={{
-            backgroundImage: `linear-gradient(to bottom, rgba(1, 1, 1, 0.3) 0%, rgba(15, 15, 15, 1) 60%), url(${game.background_image})`,
+            backgroundImage: `linear-gradient(to bottom, rgba(15, 15, 15, 0.6) 0%, rgba(15, 15, 15, 1) 60%), url(${game.background_image})`,
           }}
         >
           <Container>
             <Row className="my-4">
               <Col>
-                <p className="fw-lighter text-uppercase">
-                  HOME / GAMES / {game.name}
+                <p className="breadcrumb">
+                  <Link to="/">HOME</Link>
+                  <span> / </span>
+                  <Link to="/">GAMES</Link>
+                  <span> / {game.name}</span>
                 </p>
               </Col>
             </Row>
@@ -191,6 +198,26 @@ const Game = () => {
                         </span>
                       </div>
                     ))}
+                  </Col>
+                </Row>
+                <Row className="mt-4">
+                  <Col>
+                    <Button
+                      variant="secondary"
+                      href="#"
+                      className="px-4 py-3 me-3"
+                    >
+                      <div className="opacity-50">
+                        <FontAwesomeIcon icon="plus" className="me-2" />
+                        Write a review
+                      </div>
+                    </Button>
+                    <Button variant="secondary" href="#" className="px-4 py-3">
+                      <div className="opacity-50">
+                        <FontAwesomeIcon icon={faComment} className="me-2" />
+                        Write a comment
+                      </div>
+                    </Button>
                   </Col>
                 </Row>
                 <Row className="my-5">
@@ -315,7 +342,12 @@ const Game = () => {
               </Col>
               <Col lg={4}>
                 <GameScreenshots {...{ game, screenshots }} />
-                <Button variant="light" className="w-100 py-3 mt-4 fw-light">
+                <Button
+                  variant="light"
+                  className="w-100 py-3 mt-4 fw-light"
+                  href={`https://rawg.io/games/${game.slug}/edit`}
+                  target="_blank"
+                >
                   <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
                   Edit the game info
                 </Button>

@@ -4,3 +4,25 @@
   background-repeat: no-repeat;
   background-size: 100%;
 }
+
+.breadcrumb {
+  font-weight: 300;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.7px;
+  a {
+    text-decoration: none;
+    opacity: 0.5;
+
+    &:hover {
+      color: hsla(0, 0%, 100%, 1);
+      opacity: 1;
+      transition: all 0.2s;
+    }
+  }
+
+  span {
+    opacity: 0.5;
+    white-space: pre;
+  }
+}
