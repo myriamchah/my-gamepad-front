@@ -37,6 +37,27 @@ const Game = () => {
     }
   };
 
+  const setEmoji = (game) => {
+    if (game.ratings[0]?.title === "exceptional") {
+      return "🎯";
+    } else if (game.ratings[0]?.title === "recommended") {
+      return "👍";
+    }
+  };
+
+  const setRatingColor = (rating) => {
+    switch (rating) {
+      case "recommended":
+        return "blue";
+      case "meh":
+        return "orange";
+      case "skip":
+        return "red";
+      default:
+        return "green";
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -133,7 +154,6 @@ const Game = () => {
                         className=" ps-5 me-n2"
                       />
                     </Button>
-
                     <div className="text-start pt-2">
                       <div className="text-sm opacity-50">Save to</div>
                       <div className="text-lg">
@@ -141,6 +161,36 @@ const Game = () => {
                         <FontAwesomeIcon icon={faFolder} className="ms-2" />
                       </div>
                     </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <div className="d-flex align-items-center gap-3">
+                      <h2 className="text-capitalize">
+                        {game.ratings[0].title} {setEmoji(game)}
+                      </h2>
+                      <div className="fw-light opacity-50">
+                        {game.ratings_count} RATINGS
+                      </div>
+                    </div>
+                    {game.ratings.map((rating) => (
+                      <div
+                        key={rating.id}
+                        className="d-inline-flex align-items-center gap-1 me-3"
+                      >
+                        <span
+                          className={`${setRatingColor(
+                            rating.title
+                          )} circle-sm`}
+                        ></span>
+                        <span className="text-capitalize fw-bold text-white title-sm">
+                          {rating.title}
+                        </span>
+                        <span className=" text-sm fw-light opacity-50">
+                          {rating.count}
+                        </span>
+                      </div>
+                    ))}
                   </Col>
                 </Row>
                 <Row className="my-5">
@@ -172,8 +222,10 @@ const Game = () => {
                   </Col>
                   <Col>
                     <div>
-                      <div className="title-sm">Metascore</div>
-                      <p>{game.metascore}</p>
+                      <div className="title-sm mb-1">Metascore</div>
+                      <span className="border rounded p-1">
+                        {game.metacritic}
+                      </span>
                     </div>
                   </Col>
                 </Row>
@@ -270,6 +322,21 @@ const Game = () => {
                 <p className="title-sm text-center mt-2">
                   Last modified: {dayjs(game.updated).format("MMM DD, YYYY")}
                 </p>
+                <p className="text-lg opacity-50">Where to buy</p>
+
+                <Row className="row-cols-2">
+                  {game.stores.map((s) => (
+                    <Col key={s.id} className="p-2">
+                      <Button
+                        variant="secondary"
+                        href={s.store.domain}
+                        className="w-100 fw-light  opacity-50"
+                      >
+                        {s.store.name}
+                      </Button>
+                    </Col>
+                  ))}
+                </Row>
               </Col>
             </Row>
           </Container>
