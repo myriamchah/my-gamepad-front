@@ -1,11 +1,16 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFolder, faPenToSquare } from "@fortawesome/free-regular-svg-icons";
+
 import ReactHtmlParser from "react-html-parser";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+
+import greenPlus from "../assets/img/green-plus-icon.svg";
+import wishlist from "../assets/img/wishlist-icon.svg";
 
 import axios from "axios";
 import dayjs from "dayjs";
@@ -97,13 +102,48 @@ const Game = () => {
                     <h1>{game.name}</h1>
                   </Col>
                 </Row>
-                <Row>
-                  <Col>
-                    <Button variant="light">Add to My Games </Button>
-                    <Button variant="light">Write a Review</Button>
+                <Row className="my-4">
+                  <Col className="d-flex">
+                    <Button
+                      variant="light"
+                      className="d-flex justify-content-between align-items-center pe-0 overflow-hidden me-3"
+                    >
+                      <div className="text-start">
+                        <div className="text-sm opacity-50">Add to</div>
+                        <div className="text-lg">My Games </div>
+                      </div>
+                      <img
+                        src={greenPlus}
+                        alt="plus in circle"
+                        className=" ps-5 me-n2"
+                      />
+                    </Button>
+                    <Button
+                      variant="outline-light"
+                      className="d-flex justify-content-between align-items-center pe-0 overflow-hidden me-3"
+                    >
+                      <div className="text-start">
+                        <div className="text-sm opacity-50">Add to</div>
+                        <div className="text-lg">Wishlist </div>
+                      </div>
+                      <img
+                        src={wishlist}
+                        height="36"
+                        alt="plus in circle"
+                        className=" ps-5 me-n2"
+                      />
+                    </Button>
+
+                    <div className="text-start pt-2">
+                      <div className="text-sm opacity-50">Save to</div>
+                      <div className="text-lg">
+                        Collection
+                        <FontAwesomeIcon icon={faFolder} className="ms-2" />
+                      </div>
+                    </div>
                   </Col>
                 </Row>
-                <Row className="mb-5">
+                <Row className="my-5">
                   <Col>
                     <h2>About</h2>
                     <div style={{ overflow: "hidden", height: "220px" }}>
@@ -112,6 +152,7 @@ const Game = () => {
                     <Button
                       variant="light"
                       size="sm"
+                      className="py-0"
                       onClick={(e) => fakeCollapse(e)}
                     >
                       {toggleBtnText}
@@ -223,7 +264,7 @@ const Game = () => {
               <Col lg={4}>
                 <GameScreenshots {...{ game, screenshots }} />
                 <Button variant="light" className="w-100 py-3 mt-4 fw-light">
-                  <FontAwesomeIcon icon="pen-to-square" className="me-2" />
+                  <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
                   Edit the game info
                 </Button>
                 <p className="title-sm text-center mt-2">
