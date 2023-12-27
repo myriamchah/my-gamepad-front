@@ -24,6 +24,7 @@ import GameScreenshots from "../components/GameScreenshots/GameScreenshots";
 const Game = () => {
   const [game, setGame] = useState([]);
   const [screenshots, setScreenshots] = useState([]);
+  const [trailer, setTrailer] = useState([]);
   const [series, setSeries] = useState([]);
   const [toggleBtnText, setToggleBtnText] = useState("Read more");
   const [isLoading, setIsLoading] = useState(true);
@@ -72,6 +73,7 @@ const Game = () => {
         setGame(data.game);
         setScreenshots(data.screenshots);
         setSeries(data.others);
+        setTrailer(data.trailer);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -220,7 +222,7 @@ const Game = () => {
                     </Button>
                   </Col>
                 </Row>
-                <Row className="my-5">
+                <Row className="my-5 me-3">
                   <Col>
                     <h2>About</h2>
                     <div style={{ overflow: "hidden", height: "220px" }}>
@@ -341,7 +343,7 @@ const Game = () => {
                 </Row>
               </Col>
               <Col lg={4}>
-                <GameScreenshots {...{ game, screenshots }} />
+                <GameScreenshots {...{ game, screenshots, trailer }} />
                 <Button
                   variant="light"
                   className="w-100 py-3 mt-4 fw-light"
