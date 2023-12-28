@@ -13,9 +13,9 @@ const GameScreenshots = ({ game, screenshots, trailer }) => {
           {trailer ? (
             <ReactPlayer
               url={trailer.data.max}
-              playing="true"
-              loop="true"
-              muted="true"
+              playing={true}
+              loop={true}
+              muted={true}
               width="356"
               height="200"
               style={{ borderRadius: "12px", overflow: "hidden" }}

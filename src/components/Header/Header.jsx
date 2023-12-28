@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Collapse from "react-bootstrap/Collapse";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -11,9 +12,10 @@ import logo from "../../assets/img/g-white.png";
 
 import SearchResultsCard from "./SearchResultsCard";
 
-const Header = () => {
+const Header = ({ token, setToken, setForm, setModalShow }) => {
   const [search, setSearch] = useState("");
   const [games, setGames] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +37,7 @@ const Header = () => {
     <div>
       <Navbar expand="lg" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <img src={logo} alt="logo" height="32" />
             &nbsp;amepad
           </Navbar.Brand>
@@ -59,9 +61,42 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">LOG IN</Nav.Link>
-              <Nav.Link href="#link">SIGN UP</Nav.Link>
-              <Nav.Link href="#api">API</Nav.Link>
+              {token ? (
+                <>
+                  <Nav.Link>MY COLLECTIONS</Nav.Link>
+                  <Nav.Link
+                    onClick={() => {
+                      setToken("");
+                      navigate("/");
+                    }}
+                  >
+                    LOG OUT
+                  </Nav.Link>
+                </>
+              ) : (
+                <>
+                  <Nav.Link
+                    onClick={() => {
+                      setForm("Login");
+                      setModalShow(true);
+                    }}
+                  >
+                    LOG IN
+                  </Nav.Link>
+                  <Nav.Link
+                    onClick={() => {
+                      setForm("Signup");
+                      setModalShow(true);
+                    }}
+                  >
+                    SIGN UP
+                  </Nav.Link>
+                </>
+              )}
+
+              <Nav.Link href="https://api.rawg.io/docs/" target="_blank">
+                API
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
