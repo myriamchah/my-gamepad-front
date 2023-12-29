@@ -12,7 +12,7 @@ import logo from "../../assets/img/g-white.png";
 
 import SearchResultsCard from "./SearchResultsCard";
 
-const Header = ({ token, setToken, setForm, setModalShow }) => {
+const Header = ({ token, setUser, setForm, setModalShow }) => {
   const [search, setSearch] = useState("");
   const [games, setGames] = useState("");
   const navigate = useNavigate();
@@ -63,10 +63,10 @@ const Header = ({ token, setToken, setForm, setModalShow }) => {
             <Nav className="me-auto">
               {token ? (
                 <>
-                  <Nav.Link>MY COLLECTIONS</Nav.Link>
+                  <Nav.Link href="/my-collection">MY COLLECTION</Nav.Link>
                   <Nav.Link
                     onClick={() => {
-                      setToken("");
+                      setUser("");
                       navigate("/");
                     }}
                   >

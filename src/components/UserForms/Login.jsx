@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-const Login = ({ setToken, setForm, setModalShow }) => {
+const Login = ({ setUser, setForm, setModalShow }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -19,9 +17,8 @@ const Login = ({ setToken, setForm, setModalShow }) => {
       });
 
       if (response.data.token) {
-        setToken(response.data.token);
+        setUser(response.data.token);
         setModalShow(false);
-        navigate("/");
       } else {
         alert("Oops! Please try again.");
       }
