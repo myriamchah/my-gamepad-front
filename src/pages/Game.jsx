@@ -21,7 +21,7 @@ import dayjs from "dayjs";
 import Loader from "../components/Loader/Loader";
 import GameScreenshots from "../components/GameScreenshots/GameScreenshots";
 
-const Game = () => {
+const Game = ({ token, setForm, setModalShow }) => {
   const [game, setGame] = useState([]);
   const [screenshots, setScreenshots] = useState([]);
   const [trailer, setTrailer] = useState([]);
@@ -60,6 +60,27 @@ const Game = () => {
         return "red";
       default:
         return "green";
+    }
+  };
+
+  const saveToColl = async () => {
+    if (token) {
+      try {
+        await axios.post(
+          "http://localhost:3000/my-collection",
+          { game: gameSlug },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setForm("Login");
+      setModalShow(true);
     }
   };
 
@@ -165,7 +186,7 @@ const Game = () => {
                     </Button>
                     <div className="text-start pt-2">
                       <div className="text-sm opacity-50">Save to</div>
-                      <div className="text-lg">
+                      <div className="text-lg" onClick={saveToColl}>
                         Collection
                         <FontAwesomeIcon icon={faFolder} className="ms-2" />
                       </div>
@@ -301,7 +322,7 @@ const Game = () => {
                 <Col>
                   <div>
                     <div className="title-sm">Age rating</div>
-                    <p>{game.esrb_rating.name}</p>
+                    <p>{game.esrb_rating?.name}</p>
                   </div>
                 </Col>
                 <Row>
