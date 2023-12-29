@@ -186,7 +186,11 @@ const Game = ({ token, setForm, setModalShow }) => {
                     </Button>
                     <div className="text-start pt-2">
                       <div className="text-sm opacity-50">Save to</div>
-                      <div className="text-lg" onClick={saveToColl}>
+                      <div
+                        className="text-lg"
+                        onClick={saveToColl}
+                        style={{ cursor: "pointer" }}
+                      >
                         Collection
                         <FontAwesomeIcon icon={faFolder} className="ms-2" />
                       </div>
@@ -384,7 +388,8 @@ const Game = ({ token, setForm, setModalShow }) => {
                     <Col key={s.id} className="p-2">
                       <Button
                         variant="secondary"
-                        href={s.store.domain}
+                        href={`https://${s.store.domain}`}
+                        target="_blank"
                         className="w-100 fw-light  opacity-50"
                       >
                         {s.store.name}

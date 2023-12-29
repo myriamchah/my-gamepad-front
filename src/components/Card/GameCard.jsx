@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -23,13 +24,13 @@ const GameCard = (game) => {
               <div
                 key={i}
                 className={`bg-platform-${p.platform.name.toLowerCase()}`}
-              >
-                {" "}
-              </div>
+              ></div>
             ))}
           </div>
           <Card.Title>
-            {game.name} {setEmoji(game)}
+            <Link to={`/games/${game.slug}`} className="text-decoration-none">
+              {game.name} {setEmoji(game)}
+            </Link>
           </Card.Title>
           <Button variant="secondary" className="btn-added">
             <FontAwesomeIcon icon="plus" size="lg" className="icon" />
@@ -53,7 +54,6 @@ const GameCard = (game) => {
             <Button variant="secondary" className="btn-bottom">
               Show more like this
               <span>
-                {" "}
                 <FontAwesomeIcon
                   icon="chevron-right"
                   size="lg"

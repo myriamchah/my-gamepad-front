@@ -39,6 +39,11 @@ const MyCollection = ({ token }) => {
         <Loader />
       ) : (
         <Container>
+          <Row>
+            <Col>
+              <h1>My Collection</h1>
+            </Col>
+          </Row>
           <Row className="row-cols-6 mt-5">
             {games.map((game) => (
               <Col key={game.id} className="p-2">

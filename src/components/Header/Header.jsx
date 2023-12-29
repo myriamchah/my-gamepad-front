@@ -53,7 +53,7 @@ const Header = ({ token, setUser, setForm, setModalShow }) => {
             <FontAwesomeIcon icon="magnifying-glass" className="icon" />
             <Collapse in={search.length > 0}>
               <div id="search-results">
-                {search ? <SearchResultsCard {...{ games }} /> : ""}
+                {search ? <SearchResultsCard {...{ games, setSearch }} /> : ""}
               </div>
             </Collapse>
           </div>

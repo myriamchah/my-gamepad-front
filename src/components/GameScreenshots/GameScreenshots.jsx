@@ -21,7 +21,10 @@ const GameScreenshots = ({ game, screenshots, trailer }) => {
               style={{ borderRadius: "12px", overflow: "hidden" }}
             />
           ) : (
-            <img src={game.background_image} alt="pouet" />
+            <img
+              src={screenshots[0]?.image || game.background_image}
+              alt="screenshot 1"
+            />
           )}
         </Col>
       </Row>
@@ -29,14 +32,14 @@ const GameScreenshots = ({ game, screenshots, trailer }) => {
       <Row className="mt-4">
         <Col>
           <img
-            src={screenshots[0]?.image || game.background_image_additional}
-            alt="pouet"
+            src={screenshots[1]?.image || game.background_image_additional}
+            alt="screenshot 2"
           />
         </Col>
         <Col>
           <img
-            src={screenshots[1]?.image || game.background_image_additional}
-            alt="pouet"
+            src={screenshots[2]?.image || game.background_image_additional}
+            alt="screenshot 3"
           />
         </Col>
       </Row>
@@ -44,15 +47,15 @@ const GameScreenshots = ({ game, screenshots, trailer }) => {
         <Col>
           {" "}
           <img
-            src={screenshots[2]?.image || game.background_image}
-            alt="pouet"
+            src={screenshots[3]?.image || game.background_image}
+            alt="screenshot 4"
           />
         </Col>
         <Col>
           {" "}
           <img
-            src={screenshots[3]?.image || game.background_image}
-            alt="pouet"
+            src={screenshots[4]?.image || game.background_image}
+            alt="screenshot 5"
           />
         </Col>
       </Row>
