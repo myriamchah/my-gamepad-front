@@ -1,10 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
   faFolder,
   faPenToSquare,
   faComment,
+  faCheckCircle,
 } from "@fortawesome/free-regular-svg-icons";
 
 import ReactHtmlParser from "react-html-parser";
@@ -23,13 +25,17 @@ import GameScreenshots from "../components/GameScreenshots/GameScreenshots";
 import { useAuth } from "../contexts/authContext";
 
 const Game = ({ setForm, setModalShow }) => {
+  const { user } = useAuth();
+
   const [game, setGame] = useState([]);
+  const [savedInColl, setSavedInColl] = useState(
+    user.games.includes(game.slug)
+  );
   const [screenshots, setScreenshots] = useState([]);
   const [trailer, setTrailer] = useState([]);
   const [series, setSeries] = useState([]);
   const [toggleBtnText, setToggleBtnText] = useState("Read more");
   const [isLoading, setIsLoading] = useState(true);
-  const { user } = useAuth();
 
   const params = useParams();
   const gameSlug = params.gameSlug;
@@ -66,7 +72,7 @@ const Game = ({ setForm, setModalShow }) => {
   };
 
   const saveToColl = async () => {
-    if (user) {
+    if (user && !user.games.includes(game.slug)) {
       try {
         await axios.post(
           "http://localhost:3000/my-collection",
@@ -77,6 +83,7 @@ const Game = ({ setForm, setModalShow }) => {
             },
           }
         );
+        setSavedInColl(true);
       } catch (error) {
         console.log(error);
       }
@@ -187,25 +194,36 @@ const Game = ({ setForm, setModalShow }) => {
                         className=" ps-5 me-n2"
                       />
                     </Button>
-                    <div className="text-start pt-2">
-                      <div className="text-sm opacity-50">Save to</div>
-                      <div
-                        className="text-lg"
-                        onClick={saveToColl}
-                        style={{ cursor: "pointer" }}
-                        disabled={user.games.includes(game)}
-                      >
-                        Collection
-                        <FontAwesomeIcon icon={faFolder} className="ms-2" />
+                    {savedInColl ? (
+                      <div className="text-start pt-2">
+                        <div className="text-sm opacity-50">Saved to</div>
+                        <div className="text-lg">
+                          Collection
+                          <FontAwesomeIcon
+                            icon={faCheckCircle}
+                            className="ms-2 text-success"
+                          />
+                        </div>
                       </div>
-                    </div>
+                    ) : (
+                      <Button
+                        variant="link"
+                        className="text-start ps-0 pt-2 text-decoration-none"
+                      >
+                        <div className="text-sm opacity-50">Save to</div>
+                        <div className="text-lg" onClick={saveToColl}>
+                          Collection
+                          <FontAwesomeIcon icon={faFolder} className="ms-2" />
+                        </div>
+                      </Button>
+                    )}
                   </Col>
                 </Row>
                 <Row>
                   <Col>
                     <div className="d-flex align-items-center gap-3">
                       <h2 className="text-capitalize">
-                        {game.ratings[0].title} {setEmoji(game)}
+                        {game.ratings[0]?.title} {setEmoji(game)}
                       </h2>
                       <div className="fw-light opacity-50">
                         {game.ratings_count} RATINGS
@@ -239,7 +257,7 @@ const Game = ({ setForm, setModalShow }) => {
                       className="px-4 py-3 me-3"
                     >
                       <div className="opacity-50">
-                        <FontAwesomeIcon icon="plus" className="me-2" />
+                        <FontAwesomeIcon icon={faPlus} className="me-2" />
                         Write a review
                       </div>
                     </Button>
