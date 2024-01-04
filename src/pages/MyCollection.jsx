@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../components/Loader/Loader";
@@ -6,10 +5,12 @@ import GameCard from "../components/Card/GameCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useAuth } from "../contexts/authContext";
 
-const MyCollection = ({ token }) => {
+const MyCollection = () => {
   const [games, setGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +19,7 @@ const MyCollection = ({ token }) => {
           "http://localhost:3000/my-collection",
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${user.token}`,
             },
           }
         );
@@ -31,7 +32,7 @@ const MyCollection = ({ token }) => {
     };
 
     fetchData();
-  }, [token]);
+  }, [user]);
 
   return (
     <>

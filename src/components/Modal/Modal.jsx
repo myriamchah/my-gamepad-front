@@ -4,7 +4,7 @@ import Signup from "../UserForms/Signup";
 import Login from "../UserForms/Login";
 import "./modal.scss";
 
-const FormModal = ({ setUser, modalShow, setModalShow, form, setForm }) => {
+const FormModal = ({ modalShow, setModalShow, form, setForm }) => {
   return (
     <Modal
       show={modalShow}
@@ -20,9 +20,9 @@ const FormModal = ({ setUser, modalShow, setModalShow, form, setForm }) => {
       </Modal.Header>
       <Modal.Body>
         {form === "Login" ? (
-          <Login {...{ setUser, setForm, setModalShow }} />
+          <Login {...{ setForm, setModalShow }} />
         ) : (
-          <Signup {...{ setUser, setForm, setModalShow }} />
+          <Signup {...{ setForm, setModalShow }} />
         )}
       </Modal.Body>
     </Modal>

@@ -2,28 +2,30 @@ import { useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useAuth } from "../../contexts/authContext";
 
-const Login = ({ setUser, setForm, setModalShow }) => {
+const Login = ({ setForm, setModalShow }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { authUser } = useAuth();
 
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
       setErrorMessage("");
-      const response = await axios.post("http://localhost:3000/user/login", {
+      const { data } = await axios.post("http://localhost:3000/user/login", {
         ...{ email, password },
       });
 
-      if (response.data.token) {
-        setUser(response.data.token);
+      if (data.user) {
+        authUser(data.user);
         setModalShow(false);
       } else {
         alert("Oops! Please try again.");
       }
     } catch (error) {
-      setErrorMessage(error.response.data.message);
+      setErrorMessage(error);
     }
   };
 

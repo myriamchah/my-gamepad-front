@@ -2,23 +2,25 @@ import { useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useAuth } from "../../contexts/authContext";
 
-const Signup = ({ setUser, setForm, setModalShow }) => {
+const Signup = ({ setForm, setModalShow }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { authUser } = useAuth();
 
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
       setErrorMessage("");
-      const response = await axios.post("http://localhost:3000/user/signup", {
+      const { data } = await axios.post("http://localhost:3000/user/signup", {
         ...{ username, email, password },
       });
 
-      if (response.data.token) {
-        setUser(response.data.token);
+      if (data.user) {
+        authUser(data.user);
         setModalShow(false);
       } else {
         alert("Oops! Please try again.");
@@ -27,7 +29,7 @@ const Signup = ({ setUser, setForm, setModalShow }) => {
       if (error.response.status === 409) {
         setErrorMessage("Email already used");
       } else {
-        setErrorMessage(error.response.data.message);
+        setErrorMessage(error);
       }
     }
   };

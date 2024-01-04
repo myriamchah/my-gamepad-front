@@ -9,12 +9,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./header.scss";
 import logo from "../../assets/img/g-white.png";
-
+import { useAuth } from "../../contexts/authContext";
 import SearchResultsCard from "./SearchResultsCard";
 
-const Header = ({ token, setUser, setForm, setModalShow }) => {
+const Header = ({ setForm, setModalShow }) => {
   const [search, setSearch] = useState("");
   const [games, setGames] = useState("");
+  const { user, authUser } = useAuth();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,12 +63,12 @@ const Header = ({ token, setUser, setForm, setModalShow }) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              {token ? (
+              {user ? (
                 <>
                   <Nav.Link href="/my-collection">MY COLLECTION</Nav.Link>
                   <Nav.Link
                     onClick={() => {
-                      setUser("");
+                      authUser(user);
                       navigate("/");
                     }}
                   >

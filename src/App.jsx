@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import Cookies from "js-cookie";
 import "./App.scss";
 import Header from "./components/Header/Header";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
 import MyCollection from "./pages/MyCollection";
 import FormModal from "./components/Modal/Modal";
+import { AuthProvider } from "./contexts/authContext";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -19,25 +19,12 @@ library.add(faMagnifyingGlass, faPlus, faChevronRight);
 function App() {
   const [modalShow, setModalShow] = useState(false);
   const [form, setForm] = useState("Signup");
-  const [token, setToken] = useState(Cookies.get("token") || null);
-
-  const setUser = (token) => {
-    if (token) {
-      setToken(token);
-      Cookies.set("token", token);
-    } else {
-      setToken(null);
-      Cookies.remove("token");
-    }
-  };
-
   return (
-    <>
+    <AuthProvider>
       <Router>
-        <Header {...{ token, setUser, setModalShow, form, setForm }} />
+        <Header {...{ setModalShow, form, setForm }} />
         <FormModal
           {...{
-            setUser,
             form,
             setForm,
             modalShow,
@@ -48,15 +35,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/games/:gameSlug"
-            element={<Game {...{ token, setModalShow, setForm }} />}
+            element={<Game {...{ setModalShow, setForm }} />}
           />
-          <Route
-            path="/my-collection"
-            element={<MyCollection {...{ token }} />}
-          />
+          <Route path="/my-collection" element={<MyCollection />} />
         </Routes>
       </Router>
-    </>
+    </AuthProvider>
   );
 }
 

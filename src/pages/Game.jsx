@@ -20,14 +20,16 @@ import axios from "axios";
 import dayjs from "dayjs";
 import Loader from "../components/Loader/Loader";
 import GameScreenshots from "../components/GameScreenshots/GameScreenshots";
+import { useAuth } from "../contexts/authContext";
 
-const Game = ({ token, setForm, setModalShow }) => {
+const Game = ({ setForm, setModalShow }) => {
   const [game, setGame] = useState([]);
   const [screenshots, setScreenshots] = useState([]);
   const [trailer, setTrailer] = useState([]);
   const [series, setSeries] = useState([]);
   const [toggleBtnText, setToggleBtnText] = useState("Read more");
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
 
   const params = useParams();
   const gameSlug = params.gameSlug;
@@ -64,14 +66,14 @@ const Game = ({ token, setForm, setModalShow }) => {
   };
 
   const saveToColl = async () => {
-    if (token) {
+    if (user) {
       try {
         await axios.post(
           "http://localhost:3000/my-collection",
           { game: gameSlug },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${user.token}`,
             },
           }
         );
@@ -88,7 +90,8 @@ const Game = ({ token, setForm, setModalShow }) => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3000/games/${gameSlug}`
+          `http://localhost:3000/games/${gameSlug}`,
+          { token: user.token }
         );
 
         setGame(data.game);
@@ -102,7 +105,7 @@ const Game = ({ token, setForm, setModalShow }) => {
     };
 
     fetchData();
-  }, [gameSlug]);
+  }, [gameSlug, user.token]);
 
   return (
     <>
@@ -190,6 +193,7 @@ const Game = ({ token, setForm, setModalShow }) => {
                         className="text-lg"
                         onClick={saveToColl}
                         style={{ cursor: "pointer" }}
+                        disabled={user.games.includes(game)}
                       >
                         Collection
                         <FontAwesomeIcon icon={faFolder} className="ms-2" />
