@@ -8,14 +8,6 @@ import MyCollection from "./pages/MyCollection";
 import FormModal from "./components/Modal/Modal";
 import { AuthProvider } from "./contexts/authContext";
 
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faMagnifyingGlass,
-  faPlus,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-library.add(faMagnifyingGlass, faPlus, faChevronRight);
-
 function App() {
   const [modalShow, setModalShow] = useState(false);
   const [form, setForm] = useState("Signup");

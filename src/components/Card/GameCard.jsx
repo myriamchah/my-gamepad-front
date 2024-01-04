@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./card.scss";
+import {
+  faChevronRight,
+  faPlus,
+  faHeartCircleMinus,
+} from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../../contexts/authContext";
 
 const setEmoji = (game) => {
   if (game.ratings[0]?.title === "exceptional") {
@@ -14,6 +22,25 @@ const setEmoji = (game) => {
 };
 
 const GameCard = (game) => {
+  const { user, authUser } = useAuth();
+
+  const deleteFromColl = async (game) => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:3000/my-collection/${game.slug}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+
+      authUser(data.user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Card className="game-card">
@@ -33,9 +60,17 @@ const GameCard = (game) => {
             </Link>
           </Card.Title>
           <Button variant="secondary" className="btn-added">
-            <FontAwesomeIcon icon="plus" size="lg" className="icon" />
+            <FontAwesomeIcon icon={faPlus} size="lg" className="icon" />
             {game.added}
           </Button>
+
+          <FontAwesomeIcon
+            icon={faHeartCircleMinus}
+            className="float-end pt-2"
+            style={{ cursor: "pointer" }}
+            onClick={() => deleteFromColl(game)}
+          />
+
           <div className="toggle-show">
             <ListGroup className="list-group-flush">
               <ListGroup.Item>
@@ -55,7 +90,7 @@ const GameCard = (game) => {
               Show more like this
               <span>
                 <FontAwesomeIcon
-                  icon="chevron-right"
+                  icon={faChevronRight}
                   size="lg"
                   className="icon"
                 />

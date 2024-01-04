@@ -25,21 +25,16 @@ import GameScreenshots from "../components/GameScreenshots/GameScreenshots";
 import { useAuth } from "../contexts/authContext";
 
 const Game = ({ setForm, setModalShow }) => {
-  const { user } = useAuth();
-
   const [game, setGame] = useState([]);
-  const [savedInColl, setSavedInColl] = useState(
-    user.games.includes(game.slug)
-  );
   const [screenshots, setScreenshots] = useState([]);
   const [trailer, setTrailer] = useState([]);
   const [series, setSeries] = useState([]);
   const [toggleBtnText, setToggleBtnText] = useState("Read more");
   const [isLoading, setIsLoading] = useState(true);
 
+  const { user, authUser } = useAuth();
   const params = useParams();
   const gameSlug = params.gameSlug;
-
   const fakeCollapse = (e) => {
     if (toggleBtnText === "Read more") {
       e.target.previousSibling.style.height = "fit-content";
@@ -72,9 +67,9 @@ const Game = ({ setForm, setModalShow }) => {
   };
 
   const saveToColl = async () => {
-    if (user && !user.games.includes(game.slug)) {
+    if (user && !user.games.includes(gameSlug)) {
       try {
-        await axios.post(
+        const { data } = await axios.post(
           "http://localhost:3000/my-collection",
           { game: gameSlug },
           {
@@ -83,7 +78,8 @@ const Game = ({ setForm, setModalShow }) => {
             },
           }
         );
-        setSavedInColl(true);
+
+        authUser(data.user);
       } catch (error) {
         console.log(error);
       }
@@ -98,7 +94,7 @@ const Game = ({ setForm, setModalShow }) => {
       try {
         const { data } = await axios.get(
           `http://localhost:3000/games/${gameSlug}`,
-          { token: user.token }
+          { token: user?.token }
         );
 
         setGame(data.game);
@@ -112,7 +108,7 @@ const Game = ({ setForm, setModalShow }) => {
     };
 
     fetchData();
-  }, [gameSlug, user.token]);
+  }, [gameSlug, user?.token]);
 
   return (
     <>
@@ -194,7 +190,7 @@ const Game = ({ setForm, setModalShow }) => {
                         className=" ps-5 me-n2"
                       />
                     </Button>
-                    {savedInColl ? (
+                    {user?.games.includes(gameSlug) ? (
                       <div className="text-start pt-2">
                         <div className="text-sm opacity-50">Saved to</div>
                         <div className="text-lg">

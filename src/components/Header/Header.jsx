@@ -11,6 +11,7 @@ import "./header.scss";
 import logo from "../../assets/img/g-white.png";
 import { useAuth } from "../../contexts/authContext";
 import SearchResultsCard from "./SearchResultsCard";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const Header = ({ setForm, setModalShow }) => {
   const [search, setSearch] = useState("");
@@ -52,7 +53,7 @@ const Header = ({ setForm, setModalShow }) => {
                 setSearch(e.target.value);
               }}
             />
-            <FontAwesomeIcon icon="magnifying-glass" className="icon" />
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
             <Collapse in={search.length > 0}>
               <div id="search-results">
                 {search ? <SearchResultsCard {...{ games, setSearch }} /> : ""}
@@ -68,7 +69,7 @@ const Header = ({ setForm, setModalShow }) => {
                   <Nav.Link href="/my-collection">MY COLLECTION</Nav.Link>
                   <Nav.Link
                     onClick={() => {
-                      authUser(user);
+                      authUser("");
                       navigate("/");
                     }}
                   >
