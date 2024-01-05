@@ -1,10 +1,13 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useModalContext } from "../../contexts/modalContext";
 
-const Review = ({ setModalShow }) => {
+const Review = () => {
+  const { hideModal } = useModalContext();
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    setModalShow(false);
+    hideModal();
   };
 
   return (

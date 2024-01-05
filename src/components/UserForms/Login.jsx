@@ -3,13 +3,14 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useUserContext } from "../../contexts/userContext";
-import Signup from "../UserForms/Signup";
+import { useModalContext } from "../../contexts/modalContext";
 
-const Login = ({ setTitle, setContent, setModalShow }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const { setOrUpdateUser } = useUserContext();
+  const { hideModal, showSignupModal } = useModalContext();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ const Login = ({ setTitle, setContent, setModalShow }) => {
 
       if (data.user) {
         setOrUpdateUser(data.user);
-        setModalShow(false);
+        hideModal();
       } else {
         alert("Oops! Please try again.");
       }
@@ -55,13 +56,7 @@ const Login = ({ setTitle, setContent, setModalShow }) => {
       {errorMessage && (
         <p className="text-danger text-center">{errorMessage}</p>
       )}
-      <div
-        className="text-center"
-        onClick={() => {
-          setTitle("Sign up");
-          setContent(<Signup {...{ setContent, setTitle, setModalShow }} />);
-        }}
-      >
+      <div className="text-center" onClick={showSignupModal}>
         Don't have an account ?{" "}
         <span style={{ textDecoration: "underline", cursor: "pointer" }}>
           Sign up

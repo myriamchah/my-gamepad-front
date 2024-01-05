@@ -1,12 +1,15 @@
 import Modal from "react-bootstrap/Modal";
+import { useModalContext } from "../../contexts/modalContext";
 import "./modal.scss";
 
-const FormModal = ({ modalShow, setModalShow, title, content, cssBgClass }) => {
+const FormModal = () => {
+  const { modalShow, title, content, hideModal } = useModalContext();
+
   return (
     <Modal
       show={modalShow}
       size="lg"
-      onHide={() => setModalShow(false)}
+      onHide={hideModal}
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >

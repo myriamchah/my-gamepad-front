@@ -3,14 +3,15 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useUserContext } from "../../contexts/userContext";
-import Login from "../UserForms/Login";
+import { useModalContext } from "../../contexts/modalContext";
 
-const Signup = ({ setTitle, setContent, setModalShow }) => {
+const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const { setOrUpdateUser } = useUserContext();
+  const { showLoginModal, hideModal } = useModalContext();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ const Signup = ({ setTitle, setContent, setModalShow }) => {
 
       if (data.user) {
         setOrUpdateUser(data.user);
-        setModalShow(false);
+        hideModal();
       } else {
         alert("Oops! Please try again.");
       }
@@ -68,13 +69,7 @@ const Signup = ({ setTitle, setContent, setModalShow }) => {
       {errorMessage && (
         <p className="text-danger text-center">{errorMessage}</p>
       )}
-      <div
-        className="text-center"
-        onClick={() => {
-          setTitle("Log in");
-          setContent(<Login {...{ setContent, setTitle, setModalShow }} />);
-        }}
-      >
+      <div className="text-center" onClick={showLoginModal}>
         Already have an account ?{" "}
         <span style={{ textDecoration: "underline", cursor: "pointer" }}>
           Log in

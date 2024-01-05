@@ -10,16 +10,16 @@ import axios from "axios";
 import "./header.scss";
 import logo from "../../assets/img/g-white.png";
 import { useUserContext } from "../../contexts/userContext";
+import { useModalContext } from "../../contexts/modalContext";
 import SearchResultsCard from "./SearchResultsCard";
-import Signup from "../UserForms/Signup";
-import Login from "../UserForms/Login";
 
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const Header = ({ setTitle, setContent, setModalShow }) => {
+const Header = () => {
   const [search, setSearch] = useState("");
   const [games, setGames] = useState("");
   const { user, setOrUpdateUser } = useUserContext();
+  const { showLoginModal, showSignupModal } = useModalContext();
 
   const navigate = useNavigate();
 
@@ -81,28 +81,8 @@ const Header = ({ setTitle, setContent, setModalShow }) => {
                 </>
               ) : (
                 <>
-                  <Nav.Link
-                    onClick={() => {
-                      setTitle("Log in");
-                      setContent(
-                        <Login {...{ setContent, setTitle, setModalShow }} />
-                      );
-                      setModalShow(true);
-                    }}
-                  >
-                    LOG IN
-                  </Nav.Link>
-                  <Nav.Link
-                    onClick={() => {
-                      setTitle("Sign up");
-                      setContent(
-                        <Signup {...{ setContent, setTitle, setModalShow }} />
-                      );
-                      setModalShow(true);
-                    }}
-                  >
-                    SIGN UP
-                  </Nav.Link>
+                  <Nav.Link onClick={showLoginModal}>LOG IN</Nav.Link>
+                  <Nav.Link onClick={showSignupModal}>SIGN UP</Nav.Link>
                 </>
               )}
 
