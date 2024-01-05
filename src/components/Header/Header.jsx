@@ -11,9 +11,12 @@ import "./header.scss";
 import logo from "../../assets/img/g-white.png";
 import { useUserContext } from "../../contexts/userContext";
 import SearchResultsCard from "./SearchResultsCard";
+import Signup from "../UserForms/Signup";
+import Login from "../UserForms/Login";
+
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const Header = ({ setForm, setModalShow }) => {
+const Header = ({ setTitle, setContent, setModalShow }) => {
   const [search, setSearch] = useState("");
   const [games, setGames] = useState("");
   const { user, setOrUpdateUser } = useUserContext();
@@ -80,7 +83,10 @@ const Header = ({ setForm, setModalShow }) => {
                 <>
                   <Nav.Link
                     onClick={() => {
-                      setForm("Login");
+                      setTitle("Log in");
+                      setContent(
+                        <Login {...{ setContent, setTitle, setModalShow }} />
+                      );
                       setModalShow(true);
                     }}
                   >
@@ -88,7 +94,10 @@ const Header = ({ setForm, setModalShow }) => {
                   </Nav.Link>
                   <Nav.Link
                     onClick={() => {
-                      setForm("Signup");
+                      setTitle("Sign up");
+                      setContent(
+                        <Signup {...{ setContent, setTitle, setModalShow }} />
+                      );
                       setModalShow(true);
                     }}
                   >

@@ -48,7 +48,7 @@ const MyCollection = () => {
           <Row className="row-cols-6 mt-5">
             {games.map((game) => (
               <Col key={game.id} className="p-2">
-                <GameCard {...game} />
+                <GameCard {...{ game }} allowDelete="true" />
               </Col>
             ))}
           </Row>

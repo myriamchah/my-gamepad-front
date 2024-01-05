@@ -22,9 +22,13 @@ import axios from "axios";
 import dayjs from "dayjs";
 import Loader from "../components/Loader/Loader";
 import GameScreenshots from "../components/GameScreenshots/GameScreenshots";
+import Login from "../components/UserForms/Login";
+import Review from "../components/GameForms/Review";
+import Comment from "../components/GameForms/Comment";
+
 import { useUserContext } from "../contexts/userContext";
 
-const Game = ({ setForm, setModalShow }) => {
+const Game = ({ setTitle, setContent, setModalShow }) => {
   const [game, setGame] = useState([]);
   const [screenshots, setScreenshots] = useState([]);
   const [trailer, setTrailer] = useState([]);
@@ -84,7 +88,8 @@ const Game = ({ setForm, setModalShow }) => {
         console.log(error);
       }
     } else {
-      setForm("Login");
+      setTitle("Log in");
+      setContent(<Login {...{ setContent, setTitle, setModalShow }} />);
       setModalShow(true);
     }
   };
@@ -249,15 +254,27 @@ const Game = ({ setForm, setModalShow }) => {
                   <Col>
                     <Button
                       variant="secondary"
-                      href="#"
                       className="px-4 py-3 me-3"
+                      onClick={() => {
+                        setTitle("Write a review for " + game.name);
+                        setContent(<Review {...{ setModalShow }} />);
+                        setModalShow(true);
+                      }}
                     >
                       <div className="opacity-50">
                         <FontAwesomeIcon icon={faPlus} className="me-2" />
                         Write a review
                       </div>
                     </Button>
-                    <Button variant="secondary" href="#" className="px-4 py-3">
+                    <Button
+                      variant="secondary"
+                      className="px-4 py-3"
+                      onClick={() => {
+                        setTitle("Write a comment for " + game.name);
+                        setContent(<Comment {...{ setModalShow }} />);
+                        setModalShow(true);
+                      }}
+                    >
                       <div className="opacity-50">
                         <FontAwesomeIcon icon={faComment} className="me-2" />
                         Write a comment

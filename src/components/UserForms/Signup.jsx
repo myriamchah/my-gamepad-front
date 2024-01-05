@@ -3,8 +3,9 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useUserContext } from "../../contexts/userContext";
+import Login from "../UserForms/Login";
 
-const Signup = ({ setForm, setModalShow }) => {
+const Signup = ({ setTitle, setContent, setModalShow }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -67,7 +68,13 @@ const Signup = ({ setForm, setModalShow }) => {
       {errorMessage && (
         <p className="text-danger text-center">{errorMessage}</p>
       )}
-      <div className="text-center" onClick={() => setForm("Login")}>
+      <div
+        className="text-center"
+        onClick={() => {
+          setTitle("Log in");
+          setContent(<Login {...{ setContent, setTitle, setModalShow }} />);
+        }}
+      >
         Already have an account ?{" "}
         <span style={{ textDecoration: "underline", cursor: "pointer" }}>
           Log in

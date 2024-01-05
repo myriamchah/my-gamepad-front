@@ -21,7 +21,7 @@ const setEmoji = (game) => {
   }
 };
 
-const GameCard = (game) => {
+const GameCard = ({ game, allowDelete }) => {
   const { user, setOrUpdateUser } = useUserContext();
 
   const deleteFromColl = async (game) => {
@@ -64,12 +64,14 @@ const GameCard = (game) => {
             {game.added}
           </Button>
 
-          <FontAwesomeIcon
-            icon={faHeartCircleMinus}
-            className="float-end pt-2"
-            style={{ cursor: "pointer" }}
-            onClick={() => deleteFromColl(game)}
-          />
+          {allowDelete && (
+            <FontAwesomeIcon
+              icon={faHeartCircleMinus}
+              className="float-end pt-2"
+              style={{ cursor: "pointer" }}
+              onClick={() => deleteFromColl(game)}
+            />
+          )}
 
           <div className="toggle-show">
             <ListGroup className="list-group-flush">

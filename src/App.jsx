@@ -10,15 +10,19 @@ import { UserProvider } from "./contexts/userContext";
 
 function App() {
   const [modalShow, setModalShow] = useState(false);
-  const [form, setForm] = useState("Signup");
+  const [title, setTitle] = useState("Signup");
+  const [content, setContent] = useState("Signup");
+
   return (
     <UserProvider>
       <Router>
-        <Header {...{ setModalShow, form, setForm }} />
+        <Header {...{ setModalShow, title, content, setTitle, setContent }} />
         <FormModal
           {...{
-            form,
-            setForm,
+            title,
+            content,
+            setTitle,
+            setContent,
             modalShow,
             setModalShow,
           }}
@@ -27,7 +31,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/games/:gameSlug"
-            element={<Game {...{ setModalShow, setForm }} />}
+            element={<Game {...{ setModalShow, setContent, setTitle }} />}
           />
           <Route path="/my-collection" element={<MyCollection />} />
         </Routes>

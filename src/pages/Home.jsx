@@ -103,7 +103,7 @@ const Home = () => {
 
             <div className="cards-grid">
               {games.map((game, i) => (
-                <GameCard key={i} {...game} />
+                <GameCard key={i} {...{ game }} />
               ))}
             </div>
           </InfiniteScroll>
