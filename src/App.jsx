@@ -6,13 +6,13 @@ import Home from "./pages/Home";
 import Game from "./pages/Game";
 import MyCollection from "./pages/MyCollection";
 import FormModal from "./components/Modal/Modal";
-import { AuthProvider } from "./contexts/authContext";
+import { UserProvider } from "./contexts/userContext";
 
 function App() {
   const [modalShow, setModalShow] = useState(false);
   const [form, setForm] = useState("Signup");
   return (
-    <AuthProvider>
+    <UserProvider>
       <Router>
         <Header {...{ setModalShow, form, setForm }} />
         <FormModal
@@ -32,7 +32,7 @@ function App() {
           <Route path="/my-collection" element={<MyCollection />} />
         </Routes>
       </Router>
-    </AuthProvider>
+    </UserProvider>
   );
 }
 

@@ -22,7 +22,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import Loader from "../components/Loader/Loader";
 import GameScreenshots from "../components/GameScreenshots/GameScreenshots";
-import { useAuth } from "../contexts/authContext";
+import { useUserContext } from "../contexts/userContext";
 
 const Game = ({ setForm, setModalShow }) => {
   const [game, setGame] = useState([]);
@@ -32,7 +32,7 @@ const Game = ({ setForm, setModalShow }) => {
   const [toggleBtnText, setToggleBtnText] = useState("Read more");
   const [isLoading, setIsLoading] = useState(true);
 
-  const { user, authUser } = useAuth();
+  const { user, setOrUpdateUser } = useUserContext();
   const params = useParams();
   const gameSlug = params.gameSlug;
   const fakeCollapse = (e) => {
@@ -79,7 +79,7 @@ const Game = ({ setForm, setModalShow }) => {
           }
         );
 
-        authUser(data.user);
+        setOrUpdateUser(data.user);
       } catch (error) {
         console.log(error);
       }

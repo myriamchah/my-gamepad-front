@@ -2,14 +2,14 @@ import { useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useAuth } from "../../contexts/authContext";
+import { useUserContext } from "../../contexts/userContext";
 
 const Signup = ({ setForm, setModalShow }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { authUser } = useAuth();
+  const { setOrUpdateUser } = useUserContext();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const Signup = ({ setForm, setModalShow }) => {
       });
 
       if (data.user) {
-        authUser(data.user);
+        setOrUpdateUser(data.user);
         setModalShow(false);
       } else {
         alert("Oops! Please try again.");

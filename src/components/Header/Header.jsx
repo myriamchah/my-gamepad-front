@@ -9,14 +9,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./header.scss";
 import logo from "../../assets/img/g-white.png";
-import { useAuth } from "../../contexts/authContext";
+import { useUserContext } from "../../contexts/userContext";
 import SearchResultsCard from "./SearchResultsCard";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const Header = ({ setForm, setModalShow }) => {
   const [search, setSearch] = useState("");
   const [games, setGames] = useState("");
-  const { user, authUser } = useAuth();
+  const { user, setOrUpdateUser } = useUserContext();
 
   const navigate = useNavigate();
 
@@ -69,7 +69,7 @@ const Header = ({ setForm, setModalShow }) => {
                   <Nav.Link href="/my-collection">MY COLLECTION</Nav.Link>
                   <Nav.Link
                     onClick={() => {
-                      authUser("");
+                      setOrUpdateUser("");
                       navigate("/");
                     }}
                   >

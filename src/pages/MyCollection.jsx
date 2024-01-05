@@ -5,12 +5,12 @@ import GameCard from "../components/Card/GameCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useAuth } from "../contexts/authContext";
+import { useUserContext } from "../contexts/userContext";
 
 const MyCollection = () => {
   const [games, setGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { user } = useAuth();
+  const { user } = useUserContext();
 
   useEffect(() => {
     const fetchData = async () => {

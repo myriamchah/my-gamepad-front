@@ -11,7 +11,7 @@ import {
   faPlus,
   faHeartCircleMinus,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAuth } from "../../contexts/authContext";
+import { useUserContext } from "../../contexts/userContext";
 
 const setEmoji = (game) => {
   if (game.ratings[0]?.title === "exceptional") {
@@ -22,7 +22,7 @@ const setEmoji = (game) => {
 };
 
 const GameCard = (game) => {
-  const { user, authUser } = useAuth();
+  const { user, setOrUpdateUser } = useUserContext();
 
   const deleteFromColl = async (game) => {
     try {
@@ -35,7 +35,7 @@ const GameCard = (game) => {
         }
       );
 
-      authUser(data.user);
+      setOrUpdateUser(data.user);
     } catch (error) {
       console.log(error);
     }

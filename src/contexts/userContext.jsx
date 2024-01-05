@@ -1,18 +1,18 @@
 import { createContext, useState, useContext } from "react";
 import Cookies from "js-cookie";
 
-const AuthContext = createContext();
+const UserContext = createContext();
 
-export function useAuth() {
-  return useContext(AuthContext);
+export function useUserContext() {
+  return useContext(UserContext);
 }
 
-export function AuthProvider(props) {
+export function UserProvider(props) {
   const [user, setUser] = useState(
     (Cookies.get("user") && JSON.parse(Cookies.get("user"))) || null
   );
 
-  const authUser = (user) => {
+  const setOrUpdateUser = (user) => {
     if (user) {
       setUser(user);
       Cookies.set("user", JSON.stringify(user));
@@ -22,9 +22,9 @@ export function AuthProvider(props) {
     }
   };
 
-  const value = { user, authUser };
+  const value = { user, setOrUpdateUser };
 
   return (
-    <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
+    <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
   );
 }
