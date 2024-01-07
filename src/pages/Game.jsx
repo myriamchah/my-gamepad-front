@@ -255,7 +255,7 @@ const Game = () => {
                       className="px-4 py-3 me-3"
                       onClick={showReviewModal}
                     >
-                      <div className="opacity-50">
+                      <div className="opacity-50 cursor-pointer">
                         <FontAwesomeIcon icon={faPlus} className="me-2" />
                         Write a review
                       </div>
@@ -265,7 +265,7 @@ const Game = () => {
                       className="px-4 py-3"
                       onClick={showCommentModal}
                     >
-                      <div className="opacity-50">
+                      <div className="opacity-50 cursor-pointer">
                         <FontAwesomeIcon icon={faComment} className="me-2" />
                         Write a comment
                       </div>

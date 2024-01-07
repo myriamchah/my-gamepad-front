@@ -67,8 +67,7 @@ const GameCard = ({ game, allowDelete }) => {
           {allowDelete && (
             <FontAwesomeIcon
               icon={faHeartCircleMinus}
-              className="float-end pt-2"
-              style={{ cursor: "pointer" }}
+              className="float-end pt-2 cursor-pointer"
               onClick={() => deleteFromColl(game)}
             />
           )}

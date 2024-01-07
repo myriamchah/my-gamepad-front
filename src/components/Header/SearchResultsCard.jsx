@@ -13,8 +13,7 @@ const SearchResultsCard = ({ games, setSearch }) => {
       {games.results.map((game) => (
         <div
           key={game.name}
-          className="d-flex align-items-center my-1"
-          style={{ cursor: "pointer" }}
+          className="d-flex align-items-center cursor-pointer my-1"
           onClick={() => {
             setSearch("");
             navigate(`/games/${game.slug}`);

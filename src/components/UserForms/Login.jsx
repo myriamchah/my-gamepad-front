@@ -61,7 +61,7 @@ const Login = () => {
       )}
       <div className="text-center" onClick={showSignupModal}>
         Don't have an account ?{" "}
-        <span style={{ textDecoration: "underline", cursor: "pointer" }}>
+        <span className="cursor-pointer text-decoration-underline">
           Sign up
         </span>
       </div>

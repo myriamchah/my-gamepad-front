@@ -74,9 +74,7 @@ const Signup = () => {
       )}
       <div className="text-center" onClick={showLoginModal}>
         Already have an account ?{" "}
-        <span style={{ textDecoration: "underline", cursor: "pointer" }}>
-          Log in
-        </span>
+        <span className="cursor-pointer text-decoration-underline">Log in</span>
       </div>
     </>
   );
