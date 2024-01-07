@@ -103,7 +103,7 @@ const Home = () => {
               </Col>
             </Row>
 
-            <div className="cards-grid">
+            <div className="cards-grid-4">
               {games.map((game, i) => (
                 <GameCard key={i} {...{ game }} />
               ))}

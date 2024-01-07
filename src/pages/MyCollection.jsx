@@ -45,13 +45,11 @@ const MyCollection = () => {
               <h1>My Collection</h1>
             </Col>
           </Row>
-          <Row className="row-cols-6 mt-5">
+          <div className="mt-5 cards-grid-6">
             {games.map((game) => (
-              <Col key={game.id} className="p-2">
-                <GameCard {...{ game }} allowDelete="true" />
-              </Col>
+              <GameCard {...{ game }} allowDelete="true" key={game.id} />
             ))}
-          </Row>
+          </div>
         </Container>
       )}
     </>
