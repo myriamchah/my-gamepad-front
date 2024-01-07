@@ -27,7 +27,7 @@ const GameCard = ({ game, allowDelete }) => {
   const deleteFromColl = async (game) => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:3000/my-collection/${game.slug}`,
+        `${import.meta.env.VITE_BACKEND_URL}/my-collection/${game.slug}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,

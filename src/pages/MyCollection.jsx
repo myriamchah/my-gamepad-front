@@ -16,7 +16,7 @@ const MyCollection = () => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:3000/my-collection",
+          `${import.meta.env.VITE_BACKEND_URL}/my-collection`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,

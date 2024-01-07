@@ -23,7 +23,9 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3000?ordering=${order}&tags=${gamePlay}&parent_platforms=${platform}`
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }?ordering=${order}&tags=${gamePlay}&parent_platforms=${platform}`
         );
 
         setGames(data.results);
@@ -38,7 +40,7 @@ const Home = () => {
 
   const fetchMoreData = () => {
     axios
-      .get(`http://localhost:3000?page=${page}`)
+      .get(`${import.meta.env.VITE_BACKEND_URL}?page=${page}`)
       .then((res) => {
         setGames((prevGames) => [...prevGames, ...res.data.results]);
         res.data.results.length > 0 ? setHasMore(true) : setHasMore(false);

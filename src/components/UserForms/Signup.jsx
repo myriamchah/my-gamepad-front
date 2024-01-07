@@ -17,9 +17,12 @@ const Signup = () => {
     e.preventDefault();
     try {
       setErrorMessage("");
-      const { data } = await axios.post("http://localhost:3000/user/signup", {
-        ...{ username, email, password },
-      });
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/user/signup`,
+        {
+          ...{ username, email, password },
+        }
+      );
 
       if (data.user) {
         setOrUpdateUser(data.user);

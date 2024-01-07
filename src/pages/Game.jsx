@@ -74,7 +74,7 @@ const Game = () => {
     if (user && !user.games.includes(gameSlug)) {
       try {
         const { data } = await axios.post(
-          "http://localhost:3000/my-collection",
+          `${import.meta.env.VITE_BACKEND_URL}/my-collection`,
           { game: gameSlug },
           {
             headers: {
@@ -96,7 +96,7 @@ const Game = () => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3000/games/${gameSlug}`,
+          `${import.meta.env.VITE_BACKEND_URL}/games/${gameSlug}`,
           { token: user?.token }
         );
 

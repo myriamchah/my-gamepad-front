@@ -27,7 +27,7 @@ const Header = () => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3000?search=${search}`
+          `${import.meta.env.VITE_BACKEND_URL}?search=${search}`
         );
 
         setGames(data);

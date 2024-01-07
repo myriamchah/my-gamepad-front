@@ -16,9 +16,12 @@ const Login = () => {
     e.preventDefault();
     try {
       setErrorMessage("");
-      const { data } = await axios.post("http://localhost:3000/user/login", {
-        ...{ email, password },
-      });
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/user/login`,
+        {
+          ...{ email, password },
+        }
+      );
 
       if (data.user) {
         setOrUpdateUser(data.user);
