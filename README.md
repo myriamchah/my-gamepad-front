@@ -1,8 +1,35 @@
-# React + Vite
+# A RAWG.io copycat
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Using [RAWG.io's API](https://api.rawg.io/docs), I am building an index of video games, for fun and practice, which is basically a copy of https://rawg.io.
 
-Currently, two official plugins are available:
+**Built with**: React & NodeJS  
+**Hosted on**: Netlify & Northflank &rarr; [Check it out!](https://my-gamepad-front.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**What Features are available**
+
+- Games' index with some filtering/sorting + infinite scroll
+- Search
+- Game show with info on the game, videos/screenshots, ratings...
+- User management
+- Index of games in user's collection
+
+**What could be improved?**  
+This project is for me to practice most on my front-end skills. Back-end features are therefore limited, also bc of limited data available through the API.
+
+Feature-wise:
+
+- saving and displaying reviews and comments
+- enriching available options for filters
+- adding actions behind all CTA
+- allowing a user to create and manage several collections...
+
+UX-wise:
+
+- adding more and better quality instant feedback
+- better errors handling
+- better highlighting the logged in state on navbar
+- fixing breadcrumb...
+
+Performance-wise:
+
+- some requests take too long (search, game show...)
