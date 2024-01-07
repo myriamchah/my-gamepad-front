@@ -33,3 +33,14 @@ UX-wise:
 Performance-wise:
 
 - some requests take too long (search, game show...)
+
+**Some screenshots from the project**
+
+https://github.com/myriamchah/my-gamepad-front/assets/46889706/d31f29ee-0ff0-4ad9-98ae-6b3d99e7436b
+
+https://github.com/myriamchah/my-gamepad-front/assets/46889706/5344b269-3368-4486-ae69-68d0b1dbebfd
+
+<img width="1440" alt="Capture d’écran 2024-01-07 à 17 59 04" src="https://github.com/myriamchah/my-gamepad-front/assets/46889706/d7b198a4-e327-44ab-8921-0a6f0f331a3b">
+
+<img width="1440" alt="Capture d’écran 2024-01-07 à 17 11 23" src="https://github.com/myriamchah/my-gamepad-front/assets/46889706/d160c49e-dcbe-4785-9f0f-08fa4fc7f1ea">
+
