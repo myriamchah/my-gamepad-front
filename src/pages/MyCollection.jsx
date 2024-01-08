@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Loader from "../components/Loader/Loader";
 import GameCard from "../components/Card/GameCard";
@@ -45,11 +46,24 @@ const MyCollection = () => {
               <h1>My Collection</h1>
             </Col>
           </Row>
-          <div className="mt-5 cards-grid-6">
-            {games.map((game) => (
-              <GameCard {...{ game }} allowDelete="true" key={game.id} />
-            ))}
-          </div>
+
+          {games.length ? (
+            <div className="mt-5 cards-grid-6">
+              {games.map((game) => (
+                <GameCard {...{ game }} allowDelete="true" key={game.id} />
+              ))}
+            </div>
+          ) : (
+            <Row>
+              <Col
+                style={{ height: "70vh" }}
+                className="d-flex align-items-center justify-content-center"
+              >
+                You didn't save any game to your collection yet. &nbsp;
+                <Link to="/">Browse!</Link>
+              </Col>
+            </Row>
+          )}
         </Container>
       )}
     </>
